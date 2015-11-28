@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">SImpleUI2</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_wallet_gateway_details_pay_u">WalletGatewayDetailsPayU</string>
+</resources>

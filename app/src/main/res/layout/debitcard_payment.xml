@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="50dp">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:maxLength="16"
+        android:id="@+id/editText"
+        android:hint="Enter your Credit Card Number"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+        <Spinner
+            android:layout_width="50dp"
+            android:layout_height="35dp"
+            android:id="@+id/month"
+            />
+        <Spinner
+            android:layout_width="50dp"
+            android:layout_height="35dp"
+            android:id="@+id/year"/>
+        <EditText
+            android:layout_width="75dp"
+            android:layout_height="35dp"
+            android:id="@+id/cvv"
+            android:hint="CVV"
+            android:layout_marginLeft="75dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+        <CheckBox
+            android:layout_width="35dp"
+            android:layout_height="50dp"
+            android:id="@+id/saveCardCheck"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:text="Check this box to save card details"/>
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/makePayment"
+        android:text="Make Payment"
+        />
+</LinearLayout>
