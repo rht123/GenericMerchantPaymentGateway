@@ -9,9 +9,15 @@
         android:text="NEW CARDS"
         android:id="@+id/newCardHeader"
         />
-    <TextView
+
+    <ListView
+        android:id="@+id/listNewCard"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+    </ListView>
+    <!--<TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="testing"
-        android:id="@+id/textview"/>
+        android:id="@+id/textview"/>-->
 </LinearLayout>

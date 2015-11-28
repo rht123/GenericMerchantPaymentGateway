@@ -9,4 +9,14 @@
         android:text="SAVED CARDS"
         android:id="@+id/savedCardHeader"
         />
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="20dp"
+    android:id="@+id/message"
+    android:visibility="invisible"/>
+    <ListView
+        android:id="@+id/listSavedCards"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+    </ListView>
 </LinearLayout>

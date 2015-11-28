@@ -6,14 +6,20 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.CheckBox;
 
 public class WalletGatewayDetailsPayU extends AppCompatActivity {
 
+    CheckBox checkBox;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet_gateway_details_pay_u);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        checkBox = (CheckBox)findViewById(R.id.saveCardCheck);
+        if(checkBox.isChecked()){
+
+        }
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
