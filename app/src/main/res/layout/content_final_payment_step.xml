@@ -8,14 +8,11 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_final_payment_step"
     tools:context="com.example.rohit.simpleui2.FinalPaymentStep"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_marginTop="50dp"
+    android:layout_marginRight="50dp"
+    android:layout_marginLeft="50dp">
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/cartItemList">
-
-    </ListView>
 
     <TextView
         android:layout_width="match_parent"
@@ -24,5 +21,6 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/payNowButton"/>
+        android:id="@+id/payNowButton"
+        android:text="Pay Now"/>
 </LinearLayout>

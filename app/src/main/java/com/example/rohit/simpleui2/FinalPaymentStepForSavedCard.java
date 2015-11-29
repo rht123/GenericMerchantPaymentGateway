@@ -41,7 +41,7 @@ public class FinalPaymentStepForSavedCard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_final_payment_step);
-        payNowUrl =  getResources().getString(R.string.localhost) +"/balance";
+        payNowUrl =  getResources().getString(R.string.localhost) +"/getBalance";
         int amount        = Integer.parseInt(getResources().getString(R.string.amountToBePaid));
         String merchant_code = getResources().getString(R.string.merchant_code);
 
@@ -67,24 +67,16 @@ public class FinalPaymentStepForSavedCard extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         payButton = (Button)findViewById(R.id.payNowButton);
         infoTv = (TextView) findViewById(R.id.infoAboutBalance);
-        itemsListView = (ListView) findViewById(R.id.cartItemList);
-
+      //  itemsListView = (ListView) findViewById(R.id.cartItemList);
+infoTv.setText("Your bill costs Rs. "+amountToBePaid+". CLick on Pay Now to confirm payment");
         payButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if(amountToBePaid>balance1){
+                if(amountToBePaid<balance1){
                     Toast.makeText(FinalPaymentStepForSavedCard.this, "Insufficient Balance", Toast.LENGTH_SHORT).show();
                 }
                 else{

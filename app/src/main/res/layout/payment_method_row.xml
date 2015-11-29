@@ -10,7 +10,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"/>
     <TextView
-        android:layout_width="175dp"
+        android:layout_width="150dp"
         android:layout_height="35dp"
         android:id="@+id/nameOfWallet"
         android:layout_marginLeft="10dp"

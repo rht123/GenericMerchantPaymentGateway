@@ -7,6 +7,6 @@
     <string name="title_activity_payment_interface">Payment Interface</string>
     <string name="title_activity_final_payment_step">FinalPaymentStep</string>
     <string name="amountToBePaid">300</string>
-    <string name="localhost">http://203.199.49.154:3000</string>
+    <string name="localhost">http://192.168.43.20:3000</string>
 
 </resources>

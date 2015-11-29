@@ -65,9 +65,7 @@ public class NewCardFragment extends Fragment {
             public void onResponse(JSONObject response) {
                 try {
 
-                    Toast.makeText(getActivity(),
-                            "coooool" + "response" + response.getString("notSavedWallets"),
-                            Toast.LENGTH_LONG).show();
+
                     notSavedWalletsResponse = response;
 
 

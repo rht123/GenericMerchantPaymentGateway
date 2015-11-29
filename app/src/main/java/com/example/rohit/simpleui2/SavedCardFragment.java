@@ -43,7 +43,7 @@ public class SavedCardFragment  extends Fragment {
     ArrayList<String> discounts = new ArrayList<>();
 
     ArrayList<String>values = new ArrayList<>();
-    private static  String getSavedWallets;
+    private static  String getSavedWallets ;
 
     public  void getSavedWallets(String merchant_code, String username) {
         if (requestQueue == null)
@@ -69,9 +69,6 @@ public class SavedCardFragment  extends Fragment {
             public void onResponse(JSONObject response) {
                 try {
 
-                    Toast.makeText(getActivity(),
-                            "saved" + "response" + response.getString("savedWallets"),
-                            Toast.LENGTH_LONG).show();
                     savedWalletsResponse = response;
 
 
@@ -137,9 +134,9 @@ public class SavedCardFragment  extends Fragment {
         String username = getResources().getString(R.string.username);
         getSavedWallets(merchant_code,username);
 
-        /*try {
+        try {
             JSONObject  jsonObj =new JSONObject();
-            String apple = payment.getSavedWallets1(merchant_code, username).getString("savedWallets");
+           // String apple = payment.getSavedWallets1(merchant_code, username).getString("savedWallets");
             JSONArray array = jsonObj.getJSONArray("savedWallets");
 
             for(int i=0;i<array.length();i++) {
@@ -150,7 +147,6 @@ public class SavedCardFragment  extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-*/
 
 
         listViewSavedCards.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -66,19 +66,11 @@ public class FinalPaymentStep extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         payButton = (Button)findViewById(R.id.payNowButton);
         infoTv = (TextView) findViewById(R.id.infoAboutBalance);
-        itemsListView = (ListView) findViewById(R.id.cartItemList);
-
+       // itemsListView = (ListView) findViewById(R.id.cartItemList);
+        infoTv.setText("Your total bill amounts to Rs. "+amount+". Click on Pay Now to Confirm");
         payButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,10 +88,12 @@ public class FinalPaymentStep extends AppCompatActivity {
                             @Override
                             public void onResponse(JSONObject response) {
                                 try {
-                                    Toast.makeText(FinalPaymentStep.this,
-                                            "PAYMENT SUCCESSFULL", Toast.LENGTH_SHORT).show();
+                                    if(response.getJSONObject("success").toString()=="true") {
+                                        Toast.makeText(FinalPaymentStep.this,
+                                                "PAYMENT SUCCESSFULL", Toast.LENGTH_SHORT).show();
                                         Intent i = new Intent(FinalPaymentStep.this, MainActivity.class);
                                         startActivity(i);
+                                    }
 
 
                                 } catch (Exception e) {
