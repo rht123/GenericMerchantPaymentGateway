@@ -4,4 +4,9 @@
     <string name="title_activity_wallet_gateway_details_pay_u">WalletGatewayDetailsPayU</string>
     <string name="merchant_code">12345</string>
     <string name="username">test</string>
+    <string name="title_activity_payment_interface">Payment Interface</string>
+    <string name="title_activity_final_payment_step">FinalPaymentStep</string>
+    <string name="amountToBePaid">300</string>
+    <string name="localhost">http://203.199.49.154:3000</string>
+
 </resources>

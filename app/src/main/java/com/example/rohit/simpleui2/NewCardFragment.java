@@ -1,7 +1,6 @@
 package com.example.rohit.simpleui2;
 
 import android.app.Fragment;
-import android.app.VoiceInteractor;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,7 +20,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -40,9 +37,10 @@ public class NewCardFragment extends Fragment {
     JSONObject  jsonObj;
     JSONArray array;
     JSONObject innerObj;
-    ArrayList<String>values = new ArrayList<>();
-    private static final String getNotSavedWallets="http://192.168.43.20:3000/getNotSavedWallets";
-
+    ArrayList<String> collectionOfWallet = new ArrayList<String>();
+    ArrayList<Integer> images = new ArrayList<Integer>();
+    ArrayList<String> discounts = new ArrayList<String>();
+    private static  String getNotSavedWallets;
     public  void getNotSavedWallets(String merchant_code, String username) {
         if (requestQueue == null)
             requestQueue = Volley.newRequestQueue(getActivity());
@@ -65,8 +63,6 @@ public class NewCardFragment extends Fragment {
 
             @Override
             public void onResponse(JSONObject response) {
-
-
                 try {
 
                     Toast.makeText(getActivity(),
@@ -77,15 +73,18 @@ public class NewCardFragment extends Fragment {
 
                     array = response.getJSONArray("notSavedWallets");
 
+
                     for(int i=0;i<array.length();i++) {
                         innerObj = array.getJSONObject(i);
-                        String walletName = innerObj.getString("kgkjg");
-                        values.add(walletName);
+                        String walletName = innerObj.getString("wallet");
+                        String individualDiscount = innerObj.getString("discount");
+                        collectionOfWallet.add(walletName);
+                        discounts.add(individualDiscount);
+                        images.add(getActivity().getResources().getIdentifier(walletName.replaceAll("\\s+","").toLowerCase(), "drawable", getActivity().getPackageName()));
+
                     }
 
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                            android.R.layout.simple_list_item_1, android.R.id.text1, values);
-                    listViewNewCards.setAdapter(adapter);
+                    listViewNewCards.setAdapter(new CustomAdapter(getActivity(),images,collectionOfWallet,discounts));
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -116,6 +115,7 @@ public class NewCardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        getNotSavedWallets=getActivity().getResources().getString(R.string.localhost)+"/getNotSavedWallets";
 
 
         View v = inflater.inflate(R.layout.new_cards, container, false);
@@ -128,19 +128,17 @@ public class NewCardFragment extends Fragment {
 
         String merchant_code = getResources().getString(R.string.merchant_code);
         String username = getResources().getString(R.string.username);
-        //String[] values = new String[]{"1","2"};
+        //String[] collectionOfWallet = new String[]{"1","2"};
 
         getNotSavedWallets(merchant_code, username);
 
 
-        heading.setBackgroundColor(Color.rgb(0, 0, 150));
+        heading.setBackgroundColor(Color.rgb(150, 150, 150));
         listViewNewCards.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int itemPosition = position;
-                // ListView Clicked item value
-                String itemValue = (String) listViewNewCards.getItemAtPosition(position);
                 Intent i = new Intent(getActivity(), WalletGatewayDetailsPayU.class);
+                i.putExtra("walletname",collectionOfWallet.get(position).toString());
                 startActivity(i);
             }
         });

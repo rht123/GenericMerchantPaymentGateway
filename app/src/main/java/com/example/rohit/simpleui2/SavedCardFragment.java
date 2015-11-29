@@ -38,8 +38,12 @@ public class SavedCardFragment  extends Fragment {
     JSONObject  jsonObj;
     JSONArray array;
     JSONObject innerObj;
+    ArrayList<String> collectionOfWallet = new ArrayList<>();
+    ArrayList<Integer> images = new ArrayList<>();
+    ArrayList<String> discounts = new ArrayList<>();
+
     ArrayList<String>values = new ArrayList<>();
-    private static final String getSavedWallets="http://192.168.43.20:3000/getSavedWallets";
+    private static  String getSavedWallets;
 
     public  void getSavedWallets(String merchant_code, String username) {
         if (requestQueue == null)
@@ -66,7 +70,7 @@ public class SavedCardFragment  extends Fragment {
                 try {
 
                     Toast.makeText(getActivity(),
-                            "coooool" + "response" + response.getString("savedWallets"),
+                            "saved" + "response" + response.getString("savedWallets"),
                             Toast.LENGTH_LONG).show();
                     savedWalletsResponse = response;
 
@@ -75,18 +79,21 @@ public class SavedCardFragment  extends Fragment {
 
                     for(int i=0;i<array.length();i++) {
                         innerObj = array.getJSONObject(i);
-                        String walletName = innerObj.getString("kgkjg");
+                        String walletName = innerObj.getString("wallet");
                         values.add(walletName);
+                        String individualDiscount = innerObj.getString("discount");
+                        collectionOfWallet.add(walletName);
+                        discounts.add(individualDiscount);
+                        images.add(getActivity().getResources().getIdentifier(walletName.replaceAll("\\s+","").toLowerCase(), "drawable", getActivity().getPackageName()));
+
                     }
 
                     if(values.size()==0){
                         message.setText("You dont have any saved cards");
                         message.setVisibility(View.VISIBLE);
                     }
-                    else{
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                                android.R.layout.simple_list_item_1, android.R.id.text1, values);
-                        listViewSavedCards.setAdapter(adapter);
+                    else {
+                        listViewSavedCards.setAdapter(new CustomAdapter(getActivity(), images, collectionOfWallet, discounts));
                     }
 
                 } catch (Exception e) {
@@ -120,6 +127,7 @@ public class SavedCardFragment  extends Fragment {
         // Inflate the layout for this fragment
         View v=  inflater.inflate(R.layout.saved_cards, container, false);
         payment = new Payments(getActivity());
+        getSavedWallets=getActivity().getResources().getString(R.string.localhost)+"/getSavedWallets";
         heading = (TextView) v.findViewById(R.id.savedCardHeader);
         message = (TextView) v.findViewById(R.id.message);
         listViewSavedCards = (ListView)v.findViewById(R.id.listSavedCards);
@@ -128,6 +136,7 @@ public class SavedCardFragment  extends Fragment {
         String merchant_code = getResources().getString(R.string.merchant_code);
         String username = getResources().getString(R.string.username);
         getSavedWallets(merchant_code,username);
+
         /*try {
             JSONObject  jsonObj =new JSONObject();
             String apple = payment.getSavedWallets1(merchant_code, username).getString("savedWallets");
@@ -136,7 +145,7 @@ public class SavedCardFragment  extends Fragment {
             for(int i=0;i<array.length();i++) {
                 JSONObject innerObj = array.getJSONObject(i);
                 String walletName = innerObj.getString("kgkjg");
-                values.add(walletName);
+                collectionOfWallet.add(walletName);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -144,15 +153,11 @@ public class SavedCardFragment  extends Fragment {
 */
 
 
-
-
         listViewSavedCards.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int itemPosition     = position;
-               // ListView Clicked item value
-                String  itemValue    = (String) listViewSavedCards.getItemAtPosition(position);
-                Intent i = new Intent(getActivity(),WalletGatewayDetailsPayU.class);
+                Intent i = new Intent(getActivity(),FinalPaymentStepForSavedCard.class);
+                i.putExtra("walletname",collectionOfWallet.get(position));
                 startActivity(i);
             }
         });
